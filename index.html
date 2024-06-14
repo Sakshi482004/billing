@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="col-12">
+			<h1 class="text-center mt-5 mb-5 text-primary ">Online Billing System</h1>
+	</div>
+
+	<div class="row mt-5 w-75 ml-3">
+		<div class="col-4 text-center p-3" style="background-color:lightgrey;">
+			<p class="mt-4">Product:-
+              <input type="text" placeholder="Enter product name..."  id="name" class="w-75"></p>	
+
+        		<p class="mt-4">Quantity:-<input type="number" placeholder="Enter product qnt..."  id="qnt" class="w-75"></p>	
+
+        		<p class="mt-4">Rate (Rs):-<input type="number" placeholder="Enter product rate..."  id="rate" class="w-75"></p>
+
+        		<p class="mt-4">Discount(%)<input type="number" placeholder="Enter product dis..."  id="dis" class="w-75"></p>
+
+
+        		<p class="mt-4">Total:-<input type="number" placeholder="Enter product total..."  id="tot" readonly class="w-50"></p>
+
+        		<button class="btn btn-primary mt-3 btn-lg" onclick="addrow()">Add Product</button>
+		</div>
+
+		<div class="col-8">
+			<table class="table table-borderd table-striped ml-4" style="width:900px">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+						<th>Rate (Rs)</th>
+						<th>Quantity</th>
+						<th>Discount</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					
+				</tbody>
+				<tfoot class="bg-secondary">
+					<tr>
+						<td colspan="2">
+						<h5 class="text-white text-left ml-5">Total Amount=</h5>							
+						</td>
+						<td id="total" colspan="3" class="text-white font-weight-bold ml-5"></td>
+					</tr>					
+				</tfoot>
+			</table>
+		</div>
+</div>
+		
+</div>
+ <script type="text/javascript" src="cdn/jquery-3.7.1.js"></script>
+	<script type="text/javascript" src="cdn/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="cdn/jquery-3.7.1.slim.js"></script>
+	<script type="text/javascript" src="cdn/jquery-3.7.1.slim.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#rate,#qnt,#dis').keyup(function() {
+				var rate=$('#rate').val();
+				var qnt=$('#qnt').val();
+				var dis=$('#dis').val();
+
+				var to=Number(rate)*Number(qnt);
+				var disamt=Number(to)*Number(dis)/100;
+				var tot=Number(to)-Number(disamt);
+				$('#tot').val(tot);
+			})
+		})
+		function addrow() {
+			var name=$('#name').val();
+			var rate=$('#rate').val();
+			var qnt=$('#qnt').val();
+			var dis=$('#dis').val();
+			var tot=$('#tot').val();
+			var data="<tr><td>"+name+"</td><td>"+rate+"</td><td>"+qnt+"</td><td>"+dis+"</td><td class='total'>"+tot+"</td></tr>";
+			$('#tbody').append(data);
+				total();
+		}
+		function total() {
+			var a=document.getElementsByClassName('total');
+			var to=0;
+			for(var i=0;i<a.length;i++){
+				to+=Number(a[i].innerText);
+			}
+			$('#total').text(to+" Rs. ");
+		}
+	</script> 
+</body>
+</html>
